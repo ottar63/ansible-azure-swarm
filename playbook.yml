@@ -177,7 +177,7 @@
     - name: Create Virtual machine aznode2
       azure_rm_virtualmachine:
         resource_group: docker_vote_rg
-        vm_size: Standard_B1ls
+        vm_size: Standard_B1s
         name: aznode2
         storage_account: ansibleaccount001
         storage_container: ansiblevm001
