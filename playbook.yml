@@ -74,7 +74,7 @@
 
     - name: Show public IP
       debug:
-        msg: "{{publicip}}"
+        msg: "{{publicip.state.ip_address}}"
 
     - name: Create Network Interface for Public Net
       azure_rm_networkinterface:
@@ -194,5 +194,19 @@
           publisher: Canonical
           sku: '18.04-LTS'
           version: latest
+
+    - name: Create/update ssh config
+      blockinfile:
+         path: ~/.ssh/config
+         block: |
+            Host    azmaster
+            ProxyCommand ssh -W %h:%p "{{docker_user}}@{{publicip.state.ip_address}}"
+            StrictHostKeyChecking=no
+            Host    aznode1
+            ProxyCommand ssh -W %h:%p "{{docker_user}}@{{publicip.state.ip_address}}"
+            StrictHostKeyChecking=no
+            Host    aznode2
+            ProxyCommand ssh -W %h:%p "{{docker_user}}@{{publicip.state.ip_address}}"
+            StrictHostKeyChecking=no
 
  
