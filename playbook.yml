@@ -198,15 +198,18 @@
     - name: Create/update ssh config
       blockinfile:
          path: ~/.ssh/config
+         create: yes
          block: |
+            Host    "{{publicip.state.ip_address}}"
+            StrictHostKeyChecking no
             Host    azmaster
             ProxyCommand ssh -W %h:%p "{{docker_user}}@{{publicip.state.ip_address}}"
-            StrictHostKeyChecking=no
+            StrictHostKeyChecking no
             Host    aznode1
             ProxyCommand ssh -W %h:%p "{{docker_user}}@{{publicip.state.ip_address}}"
-            StrictHostKeyChecking=no
+            StrictHostKeyChecking o
             Host    aznode2
             ProxyCommand ssh -W %h:%p "{{docker_user}}@{{publicip.state.ip_address}}"
-            StrictHostKeyChecking=no
+            StrictHostKeyChecking no
 
  
