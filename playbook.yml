@@ -79,10 +79,12 @@
     - name: Create Network Interface for Public Net
       azure_rm_networkinterface:
         resource_group: docker_vote_rg
-        name: master_public_if
         virtual_network: dockervn
+        name: master_public_if
+        ip_configurations:
+           - name: pub_ip_001
+             public_ip_address_name: publicip001
         subnet: dockersub
-        public_ip_name: publicip001
         security_group: vote_secgroup
 
 
@@ -207,7 +209,7 @@
             StrictHostKeyChecking no
             Host    aznode1
             ProxyCommand ssh -W %h:%p "{{docker_user}}@{{publicip.state.ip_address}}"
-            StrictHostKeyChecking o
+            StrictHostKeyChecking no
             Host    aznode2
             ProxyCommand ssh -W %h:%p "{{docker_user}}@{{publicip.state.ip_address}}"
             StrictHostKeyChecking no
