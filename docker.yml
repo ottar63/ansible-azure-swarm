@@ -3,7 +3,7 @@
   become: true
   vars:
     docker_user: "{{lookup('env','USER')}}"
-
+    ansible_host_key_checking: false
   roles:
     - ottar63.docker
 
