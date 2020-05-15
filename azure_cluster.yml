@@ -1,0 +1,29 @@
+---
+azure_hosts:
+      - name: azmaster
+        manager: true
+        hostname: azmaster
+        machine_size: Standard_B1s
+        private_ip: 10.10.0.6
+        public_ip: true
+      - name: aznode1
+        workers: true
+        hostname: aznode1
+        machine_size: Standard_B1s
+        private_ip: 10.10.0.7
+        manager: false
+      - name: aznode2
+        workers: true
+        hostname: aznode2
+        machine_size: Standard_B1s
+        private_ip: 10.10.0.8
+        manager: false
+
+resourcegroup: docker_vote_rg
+securitygroup: vote_sec_group
+virtualnet: virtualnet
+manager_host: azmaster
+subnet: subnet
+subnet_ext: subnet_ext
+docker_user: "{{lookup('env','USER')}}"
+publicip: {}
