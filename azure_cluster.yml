@@ -1,23 +1,23 @@
 ---
 azure_hosts:
-      - name: azmaster
-        manager: true
-        hostname: azmaster
-        machine_size: Standard_B1s
-        private_ip: 10.10.0.6
-        public_ip: true
-      - name: aznode1
-        workers: true
-        hostname: aznode1
-        machine_size: Standard_B1s
-        private_ip: 10.10.0.7
-        manager: false
-      - name: aznode2
-        workers: true
-        hostname: aznode2
-        machine_size: Standard_B1s
-        private_ip: 10.10.0.8
-        manager: false
+  azmaster:
+    manager: "True"
+    hostname: azmaster
+    machine_size: Standard_B1s
+    private_ip: 10.10.0.6
+    public_ip: "True"
+  aznode1:
+    workers: "True"
+    hostname: aznode1
+    machine_size: Standard_B1s
+    private_ip: 10.10.0.7
+    manager: "False"
+  aznode2:
+    workers: "True"
+    hostname: aznode2
+    machine_size: Standard_B1s
+    private_ip: 10.10.0.8
+    manager: "False"
 
 resourcegroup: docker_vote_rg
 securitygroup: vote_sec_group

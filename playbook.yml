@@ -77,7 +77,7 @@
 
     - include_tasks: create_vm.yml
       vars:
-        host: "{{item}}"
+        host: "{{azure_hosts[item]}}"
       with_items: "{{azure_hosts}}"
 
     - name: Debug publicip
@@ -86,7 +86,7 @@
 
     - name: Debug azure_hosts
       debug:
-        msg: "{{item.hostname}}"
+        msg: "{{azure_hosts[item].hostname}}"
       with_items: "{{azure_hosts}}"
 
     - name: Create/update ssh config
@@ -95,8 +95,8 @@
         create: "yes"
         block: |
           StrictHostKeyChecking no
-          Host    "{{item.hostname}}"
+          Host    "{{azure_hosts[item].hostname}}"
           ProxyCommand ssh -W %h:%p "{{docker_user}}@{{public_ip}}"
           UserKnownHostsFile /dev/null
-        marker: "#  {mark} hostname: {{item.hostname}}  "
+        marker: "#  {mark} hostname: {{azure_hosts[item].hostname}}  "
       with_items: "{{azure_hosts}}"
