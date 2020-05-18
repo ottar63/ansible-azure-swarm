@@ -7,6 +7,9 @@
   vars_files:
     - azure_cluster.yml
   tasks:
+    - name: Get my Public IP
+      ipify_facts:
+
     - name: Create resource group
       azure_rm_resourcegroup:
         name: "{{resourcegroup}}"
@@ -46,7 +49,7 @@
             priority: 102
             direction: Inbound
             source_address_prefix:
-              - "193.91.144.138/32"
+              - "{{ipify_public_ip}}"
       register: votegrp
 
     - name: Create Virtual network
